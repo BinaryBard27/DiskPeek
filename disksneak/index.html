@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'" />
+  <title>DiskSneak</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark">◧</span>
+      <h1 class="brand-name">DiskSneak</h1>
+      <span id="app-version" class="version"></span>
+    </div>
+    <button id="btn-scan" class="btn btn-primary">Scan folder</button>
+  </header>
+
+  <main>
+    <!-- Scanning state -->
+    <section id="scan-panel" class="scan-panel hidden">
+      <div class="scan-progress-row">
+        <span id="progress-label">Scanning…</span>
+        <span id="progress-pct">0%</span>
+      </div>
+      <div class="progress-track">
+        <div id="progress-fill" class="progress-fill"></div>
+      </div>
+      <div class="scan-stats">
+        <span id="stat-scanned">0 items</span>
+        <span id="stat-scanned-size">0 B scanned</span>
+      </div>
+      <button id="btn-cancel" class="btn btn-ghost">Cancel scan</button>
+    </section>
+
+    <!-- Results table -->
+    <section id="results-section" class="hidden">
+      <div class="summary">
+        <span id="sum-root"></span>
+        <span id="sum-counts" class="muted"></span>
+      </div>
+
+      <div class="table-wrap">
+        <table class="results-table">
+          <thead>
+            <tr>
+              <th class="col-check"></th>
+              <th>Name</th>
+              <th>Type</th>
+              <th class="col-size">Size</th>
+              <th>Path</th>
+            </tr>
+          </thead>
+          <tbody id="results-body">
+            <!-- Rows rendered by renderer.js -->
+          </tbody>
+        </table>
+      </div>
+
+      <div class="results-footer">
+        <span id="selected-summary" class="muted">0 selected</span>
+        <button id="btn-trash" class="btn btn-danger" disabled>Move selected to Recycle Bin</button>
+      </div>
+    </section>
+
+    <!-- Empty state -->
+    <section id="empty-state" class="empty-state">
+      <p>No scan yet — pick a folder to see what is eating your disk space.</p>
+    </section>
+  </main>
+
+  <footer class="statusbar">
+    <span id="status-message">Ready</span>
+    <span id="status-path" class="muted"></span>
+  </footer>
+
+  <script src="renderer.js"></script>
+</body>
+</html>

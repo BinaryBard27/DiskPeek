@@ -1,0 +1,42 @@
+{
+  "name": "disksneak",
+  "productName": "DiskSneak",
+  "version": "1.0.0",
+  "description": "Simple and clean disk space analyzer for Windows",
+  "main": "main.js",
+  "author": "BinaryBard27",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder --win",
+    "pack": "electron-builder --dir"
+  },
+  "devDependencies": {
+    "electron": "45.0.0",
+    "electron-builder": "26.18.0"
+  },
+  "build": {
+    "appId": "com.binarybard27.disksneak",
+    "productName": "DiskSneak",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "scanner.js",
+      "index.html",
+      "styles.css",
+      "renderer.js",
+      "assets/**/*"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "assets/icon.png"
+    },
+    "nsis": {
+      "oneClick": true,
+      "createDesktopShortcut": "always"
+    }
+  }
+}

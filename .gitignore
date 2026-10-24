@@ -1,3 +1,11 @@
+# Node
+node_modules/
+
+# Build outputs
+disksneak/dist/
+disksneak/node_modules/
+
+# Python
 __pycache__/
 *.pyc
 .venv/
