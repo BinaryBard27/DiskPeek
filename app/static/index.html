@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DiskPeek — Live Disk Usage</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">&#x25E7;</span>
+      <span class="brand-name">DiskPeek</span>
+      <span id="live-badge" class="live-badge">
+        <span class="live-dot" aria-hidden="true"></span> LIVE
+      </span>
+    </div>
+    <div class="topbar-right">
+      <span id="updated" class="updated">—</span>
+    </div>
+  </header>
+
+  <main>
+    <section id="disks" class="disks" aria-live="polite" aria-label="Live disk usage">
+      <!-- Disk cards are rendered by app.js -->
+    </section>
+    <p id="data-note" class="data-note"></p>
+  </main>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
