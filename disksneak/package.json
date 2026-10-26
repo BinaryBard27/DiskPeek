@@ -28,6 +28,7 @@
       "index.html",
       "styles.css",
       "renderer.js",
+      "vendor/**/*",
       "assets/**/*"
     ],
     "win": {
@@ -36,7 +37,9 @@
     },
     "nsis": {
       "oneClick": true,
-      "createDesktopShortcut": "always"
+      "createDesktopShortcut": "always",
+      "deleteAppDataOnUninstall": false,
+      "artifactName": "${productName} Setup ${version}.${ext}"
     }
   }
 }

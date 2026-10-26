@@ -23,12 +23,37 @@ const PROGRESS_EVERY = 50;
  * Create a scanner controller.
  *
  * @param {Object} callbacks
- * @param {(p: {scanned:number,totalSize:number,percent:number}) => void} callbacks.onProgress
+ * @param {(p: {scanned:number,totalSize:number,percent:number,fileCount:number,folderCount:number}) => void} callbacks.onProgress
  * @param {(r: {root:string, items:Array, totalSize:number, fileCount:number, folderCount:number}) => void} callbacks.onResult
  * @param {(message:string) => void} callbacks.onError
  */
 function createScanner(callbacks) {
   let cancelled = false;
+  const state = { counter: 0, fileCount: 0, folderCount: 0, totalSize: 0 };
+  const items = [];
+
+  /** Add an item and keep running counters in sync (cheap O(1)). */
+  function addItem(item) {
+    items.push(item);
+    if (item.type === "file") state.fileCount += 1;
+    else state.folderCount += 1;
+    state.totalSize += item.size;
+  }
+
+  /** Emit one progress report (throttled by PROGRESS_EVERY). */
+  function reportProgress() {
+    // Heuristic estimate: assume the tree holds ~3x the files seen so far,
+    // so the progress bar climbs smoothly and reaches 100% near the end.
+    const estimatedTotal = Math.max(state.fileCount, 1) * 3;
+    const percent = Math.min(99, (state.fileCount / estimatedTotal) * 100);
+    callbacks.onProgress?.({
+      scanned: state.counter,
+      totalSize: state.totalSize,
+      percent,
+      fileCount: state.fileCount,
+      folderCount: state.folderCount
+    });
+  }
 
   /**
    * Recursively scan `dirPath` up to `depth`.
@@ -83,31 +108,12 @@ function createScanner(callbacks) {
         totalSize += file.size;
       }
       // Periodic progress reporting.
+      state.counter += 1;
       if (state.counter % PROGRESS_EVERY === 0) {
         reportProgress();
       }
-      state.counter += 1;
     }
     return totalSize;
-  }
-
-  const state = { counter: 0 };
-  const items = [];
-
-  function addItem(item) {
-    items.push(item);
-  }
-
-  function reportProgress() {
-    const scanned = state.counter;
-    const fileItems = items.filter((i) => i.type === "file");
-    const totalSizeSoFar = fileItems.reduce((a, b) => a + b.size, 0);
-    // Heuristic estimate: assume the tree holds ~3x the files seen so far,
-    // so the progress bar climbs smoothly and reaches 100% near the end.
-    const filesSoFar = fileItems.length;
-    const estimatedTotal = Math.max(filesSoFar, 1) * 3;
-    const percent = Math.min(100, (scanned / estimatedTotal) * 100);
-    callbacks.onProgress?.({ scanned, totalSize: totalSizeSoFar, percent });
   }
 
   /**
@@ -115,6 +121,9 @@ function createScanner(callbacks) {
    */
   async function scan(folderPath) {
     state.counter = 0;
+    state.fileCount = 0;
+    state.folderCount = 0;
+    state.totalSize = 0;
     items.length = 0;
     cancelled = false;
 
@@ -142,18 +151,15 @@ function createScanner(callbacks) {
       return;
     }
 
-    // Sort by size, largest first.
+    // Sort by size, largest first (stable for table view).
     items.sort((a, b) => b.size - a.size);
-
-    const fileCount = items.filter((i) => i.type === "file").length;
-    const folderCount = items.length - fileCount;
 
     callbacks.onResult?.({
       root: folderPath,
       items,
       totalSize,
-      fileCount,
-      folderCount
+      fileCount: state.fileCount,
+      folderCount: state.folderCount
     });
   }
 

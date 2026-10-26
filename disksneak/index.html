@@ -7,73 +7,157 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <!-- ===== Top bar: brand + version + license status ===== -->
   <header class="topbar">
     <div class="brand">
       <span class="brand-mark">◧</span>
       <h1 class="brand-name">DiskSneak</h1>
       <span id="app-version" class="version"></span>
     </div>
-    <button id="btn-scan" class="btn btn-primary">Scan folder</button>
+    <div class="topbar-actions">
+      <button id="btn-license" class="btn btn-ghost">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M12 11V7a4 4 0 1 1 8 0v4"/></svg>
+        <span id="license-state">License</span>
+      </button>
+    </div>
   </header>
 
+  <!-- ===== Action toolbar ===== -->
+  <div class="toolbar">
+    <button id="btn-pick" class="btn btn-ghost">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7a2 2 0 0 1 2-2h5l2 2h7a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"/></svg>
+      Select Folder
+    </button>
+    <button id="btn-scan" class="btn btn-primary" disabled>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg>
+      Scan
+    </button>
+    <button id="btn-cancel" class="btn btn-ghost" hidden>Cancel</button>
+    <span id="toolbar-path" class="toolbar-path muted"></span>
+  </div>
+
   <main>
-    <!-- Scanning state -->
+    <!-- ===== Scanning progress ===== -->
     <section id="scan-panel" class="scan-panel hidden">
-      <div class="scan-progress-row">
+      <div class="scan-panel-head">
         <span id="progress-label">Scanning…</span>
-        <span id="progress-pct">0%</span>
+        <span id="progress-pct" class="progress-pct">0%</span>
       </div>
       <div class="progress-track">
         <div id="progress-fill" class="progress-fill"></div>
       </div>
       <div class="scan-stats">
-        <span id="stat-scanned">0 items</span>
-        <span id="stat-scanned-size">0 B scanned</span>
+        <div class="stat">
+          <span class="stat-value" id="stat-scanned">0</span>
+          <span class="stat-label">items scanned</span>
+        </div>
+        <div class="stat">
+          <span class="stat-value" id="stat-scanned-size">0 B</span>
+          <span class="stat-label">size scanned</span>
+        </div>
+        <div class="stat">
+          <span class="stat-value" id="stat-files">0</span>
+          <span class="stat-label">files</span>
+        </div>
       </div>
-      <button id="btn-cancel" class="btn btn-ghost">Cancel scan</button>
+      <button id="btn-cancel-inline" class="btn btn-ghost scan-cancel">Cancel scan</button>
     </section>
 
-    <!-- Results table -->
+    <!-- ===== Results ===== -->
     <section id="results-section" class="hidden">
       <div class="summary">
-        <span id="sum-root"></span>
-        <span id="sum-counts" class="muted"></span>
+        <span id="sum-root" class="summary-root"></span>
+        <div class="summary-chips">
+          <span class="chip"><span id="sum-total">0 B</span>total size</span>
+          <span class="chip"><span id="sum-files">0</span>files</span>
+          <span class="chip"><span id="sum-folders">0</span>folders</span>
+        </div>
       </div>
 
-      <div class="table-wrap">
-        <table class="results-table">
-          <thead>
-            <tr>
-              <th class="col-check"></th>
-              <th>Name</th>
-              <th>Type</th>
-              <th class="col-size">Size</th>
-              <th>Path</th>
-            </tr>
-          </thead>
-          <tbody id="results-body">
-            <!-- Rows rendered by renderer.js -->
-          </tbody>
-        </table>
+      <div class="results-toolbar">
+        <div class="view-toggle" role="tablist">
+          <button id="view-table" class="view-btn active" role="tab">Table</button>
+          <button id="view-treemap" class="view-btn" role="tab">Treemap</button>
+        </div>
+        <div class="treemap-crumbs" id="treemap-crumbs"></div>
       </div>
 
-      <div class="results-footer">
-        <span id="selected-summary" class="muted">0 selected</span>
-        <button id="btn-trash" class="btn btn-danger" disabled>Move selected to Recycle Bin</button>
+      <!-- Table view -->
+      <div id="table-view">
+        <div class="table-wrap">
+          <table class="results-table">
+            <thead>
+              <tr>
+                <th class="col-check"></th>
+                <th>Name</th>
+                <th>Type</th>
+                <th class="col-size">Size</th>
+                <th>Path</th>
+              </tr>
+            </thead>
+            <tbody id="results-body">
+              <!-- Rows rendered by renderer.js -->
+            </tbody>
+          </table>
+        </div>
+
+        <div class="results-footer">
+          <span id="selected-summary" class="muted">0 selected</span>
+          <button id="btn-trash" class="btn btn-danger" disabled>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M10 7V5a2 2 0 0 1 2-2h0a2 2 0 0 1 2 2v2M6 7l1 13a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l1-13"/></svg>
+            Move selected to Recycle Bin
+          </button>
+        </div>
+      </div>
+
+      <!-- Treemap view -->
+      <div id="treemap-view" class="hidden">
+        <div id="treemap-box" class="treemap-box">
+          <!-- Rectangles injected by renderer.js -->
+          <div id="treemap-tooltip" class="treemap-tooltip hidden"></div>
+          <div id="treemap-empty" class="treemap-empty hidden">Nothing to visualize yet.</div>
+        </div>
       </div>
     </section>
 
-    <!-- Empty state -->
+    <!-- ===== Empty state ===== -->
     <section id="empty-state" class="empty-state">
+      <div class="empty-icon">
+        <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>
+      </div>
       <p>No scan yet — pick a folder to see what is eating your disk space.</p>
     </section>
   </main>
 
+  <!-- ===== Status bar ===== -->
   <footer class="statusbar">
     <span id="status-message">Ready</span>
     <span id="status-path" class="muted"></span>
   </footer>
 
+  <!-- ===== License modal ===== -->
+  <div id="license-modal" class="modal-overlay hidden">
+    <div class="modal-card">
+      <div class="modal-head">
+        <span class="brand-mark">◧</span>
+        <h2>DiskSneak</h2>
+      </div>
+      <p class="modal-text">
+        Enter your DiskSneak license key to unlock the full app.
+        Lifetime access, one payment.
+      </p>
+      <input id="license-input" type="text" class="license-input"
+             placeholder="XXXX-XXXX-XXXX-XXXX" spellcheck="false" autocomplete="off" />
+      <div class="modal-actions">
+        <a class="btn btn-ghost modal-buy" href="https://buy.dodopayments.com/" target="_blank" rel="noopener">Get a license (Dodo Payments)</a>
+        <button id="btn-activate" class="btn btn-primary">Activate License</button>
+      </div>
+      <p id="license-error" class="modal-error hidden"></p>
+      <p class="modal-note">Development build: any key longer than 10 characters is accepted. Dodo Payments API hookup is a documented placeholder.</p>
+    </div>
+  </div>
+
+  <script src="vendor/d3-hierarchy.js"></script>
   <script src="renderer.js"></script>
 </body>
 </html>

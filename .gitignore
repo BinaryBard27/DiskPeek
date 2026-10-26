@@ -5,6 +5,9 @@ node_modules/
 disksneak/dist/
 disksneak/node_modules/
 
+# Local archives
+disksneak.zip
+
 # Python
 __pycache__/
 *.pyc

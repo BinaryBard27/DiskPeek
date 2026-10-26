@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="DiskSneak — a fast, clean disk space analyzer for Windows. Find what is eating your disk space and clean it up in one click." />
+  <meta property="og:title" content="DiskSneak — Reclaim your disk space" />
+  <meta property="og:description" content="Fast, clean disk space analyzer for Windows. Scan, visualize with an interactive treemap, and clear space with the Recycle Bin." />
+  <meta property="og:type" content="website" />
+  <title>DiskSneak — Reclaim your disk space</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" type="image/png" href="../disksneak/assets/icon.png" />
+</head>
+<body>
+  <!-- ============================
+       NAV
+       ============================ -->
+  <nav class="nav" id="nav">
+    <a class="nav-brand" href="#top">
+      <span class="nav-mark">◧</span>
+      <span>DiskSneak</span>
+    </a>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#screenshots">Screenshots</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+      <a href="#download" class="nav-cta">Download</a>
+    </div>
+  </nav>
+
+  <!-- ============================
+       HERO
+       ============================ -->
+  <header class="hero" id="top">
+    <div class="container">
+      <div class="hero-copy">
+        <span class="hero-badge">Windows · Free to try · Lifetime license</span>
+        <h1>Reclaim the space <em>you've lost.</em></h1>
+        <p class="hero-sub">
+          DiskSneak scans any folder, shows you exactly what is eating your
+          disk space in an interactive treemap, and moves junk to the
+          Recycle Bin — fast, clean, and private (no data leaves your PC).
+        </p>
+        <div class="hero-actions">
+          <!-- DODOPAYMENTS PLACEHOLDER: replace href with your Dodo checkout URL -->
+          <a class="btn btn-primary" href="#download">Download for Windows</a>
+          <a class="btn btn-ghost" href="#pricing">Lifetime deal</a>
+        </div>
+        <div class="hero-meta">
+          <span><strong>10k+</strong> folders scanned in one pass</span>
+          <span><strong>0</strong> data leaves your machine</span>
+          <span><strong>1</strong> payment, lifetime</span>
+        </div>
+      </div>
+
+      <!-- CSS-drawn app mockup: mini window with treemap blocks -->
+      <div class="hero-mockup" aria-hidden="true">
+        <div class="mockup">
+          <div class="mockup-titlebar">
+            <span class="mockup-dot"></span><span class="mockup-dot"></span><span class="mockup-dot"></span>
+            <span class="mockup-title">DiskSneak — C:\Users</span>
+          </div>
+          <div class="mockup-body">
+            <div class="tm-block" style="left:0; top:0; width:52%; height:58%; background:rgba(59,130,246,.95);"></div>
+            <div class="tm-block" style="left:54%; top:0; width:46%; height:34%; background:rgba(59,130,246,.55);"></div>
+            <div class="tm-block" style="left:54%; top:36%; width:22%; height:36%; background:rgba(122,170,255,.8);"></div>
+            <div class="tm-block" style="left:78%; top:36%; width:22%; height:36%; background:rgba(59,130,246,.45);"></div>
+            <div class="tm-block" style="left:0; top:60%; width:30%; height:40%; background:rgba(59,130,246,.7);"></div>
+            <div class="tm-block" style="left:32%; top:58%; width:20%; height:42%; background:rgba(122,170,255,.6);"></div>
+            <div class="tm-block" style="left:54%; top:74%; width:46%; height:26%; background:rgba(59,130,246,.35);"></div>
+          </div>
+          <div class="mockup-footer">
+            <span>Scanning… 42%</span>
+            <span>12,480 items · 84.2 GB</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ============================
+         FEATURES
+         ============================ -->
+    <section class="section" id="features">
+      <div class="container">
+        <h2 class="section-title">Everything you need to free up space</h2>
+        <p class="section-sub">No telemetry. No cloud. Just your disk, made visible.</p>
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">🔍</div>
+            <h3>Deep folder scan</h3>
+            <p>Pick any folder; DiskSneak walks the tree asynchronously, skipping permission-denied paths gracefully, with live progress and one-click cancel.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🗺️</div>
+            <h3>Interactive treemap</h3>
+            <p>See size as area. Hover for details, click a folder to drill down, and jump back up via the breadcrumb. Table view keeps the full item list.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🗑️</div>
+            <h3>One-click Recycle Bin</h3>
+            <p>Multi-select heavy files or folders and move them to the Recycle Bin — a safe delete you can undo from Windows.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🔒</div>
+            <h3>Private by design</h3>
+            <p>Everything runs locally in a sandboxed Electron app (context isolation, no node integration). Your file paths and sizes never leave your machine.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">📊</div>
+            <h3>Live scan progress</h3>
+            <p>Percentage, items scanned, files seen, and bytes counted update smoothly while the scan runs — then a summary shows totals at a glance.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🔑</div>
+            <h3>One payment, forever</h3>
+            <p>Activate DiskSneak with a lifetime license key, sold through Dodo Payments and validated securely on your machine.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================
+         SCREENSHOTS (placeholders)
+         ============================ -->
+    <section class="section section-alt" id="screenshots">
+      <div class="container">
+        <h2 class="section-title">A peek inside</h2>
+        <p class="section-sub">Replace these placeholders with real captures from the app.</p>
+        <div class="shots-grid">
+          <!-- Screenshot placeholders: drop real images at website/assets/shot-1.png etc. -->
+          <figure class="shot-card">
+            <div class="shot-img"><span>Table view</span></div>
+            <figcaption>Full item list with type, size and path</figcaption>
+          </figure>
+          <figure class="shot-card">
+            <div class="shot-img"><span>Treemap view</span></div>
+            <figcaption>Size as area — click folders to drill down</figcaption>
+          </figure>
+          <figure class="shot-card">
+            <div class="shot-img"><span>Progress + summary</span></div>
+            <figcaption>Live scan stats and end-of-scan totals</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================
+         DOWNLOAD
+         ============================ -->
+    <section class="section" id="download">
+      <div class="container download-panel">
+        <h2 class="section-title">Download DiskSneak</h2>
+        <p class="section-sub">Windows 10 / 11 · 64-bit · NSIS installer</p>
+        <a class="btn btn-primary btn-lg" href="https://github.com/BinaryBard27/DiskPeek/releases" target="_blank" rel="noopener">
+          ⬇ Download for Windows
+        </a>
+        <p class="download-note">
+          Released as an NSIS .exe installer. One-click install, desktop shortcut included.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============================
+         PRICING (Lifetime deal)
+         ============================ -->
+    <section class="section section-alt" id="pricing">
+      <div class="container">
+        <h2 class="section-title">One payment. Forever.</h2>
+        <p class="section-sub">No subscriptions. Buy once, use forever — including all future updates.</p>
+        <div class="pricing-grid">
+          <div class="price-card price-card-featured">
+            <h3>DiskSneak — Lifetime</h3>
+            <div class="price"><span class="price-cur">$</span>29<sup>99</sup></div>
+            <ul class="price-list">
+              <li>✓ Unlimited scans</li>
+              <li>✓ Interactive treemap + table views</li>
+              <li>✓ Recycle Bin cleanup</li>
+              <li>✓ Lifetime updates included</li>
+              <li>✓ No subscription, no telemetry</li>
+            </ul>
+            <!-- DODOPAYMENTS PLACEHOLDER: replace with your Dodo checkout/product link -->
+            <a class="btn btn-primary" href="https://buy.dodopayments.com/" target="_blank" rel="noopener">Buy with Dodo Payments</a>
+            <span class="price-note">Paid via Dodo Payments · key delivered by email</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================
+         FAQ
+         ============================ -->
+    <section class="section" id="faq">
+      <div class="container">
+        <h2 class="section-title">Frequently asked questions</h2>
+        <div class="faq-list">
+          <details class="faq-item">
+            <summary>Is DiskSneak free or paid?</summary>
+            <p>You can try the scan and treemap features. The full app is unlocked with a one-time lifetime purchase through Dodo Payments.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Which platforms are supported?</summary>
+            <p>Windows 10 and 11 (64-bit). The download is a native NSIS installer for Windows.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Does my data leave my computer?</summary>
+            <p>No. Scanning, visualization, and trash operations all happen locally. DiskSneak has no telemetry and no accounts.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Is it safe to move files to the Recycle Bin?</summary>
+            <p>Yes — items go to the Windows Recycle Bin, so you can restore them until the bin is emptied.</p>
+          </details>
+          <details class="faq-item">
+            <summary>How do I activate my license?</summary>
+            <p>After purchasing, Dodo Payments emails your license key. Open the app, click the license icon in the top bar, paste the key, and hit “Activate License”.</p>
+          </details>
+          <details class="faq-item">
+            <summary>What happens if I buy and the app changes?</summary>
+            <p>Your lifetime purchase covers all future updates for this product — no re-purchase when new features ship.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============================
+       FOOTER
+       ============================ -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span>© <span id="year">2026</span> DiskSneak · Windows disk space analyzer</span>
+      <span class="footer-links">
+        <a href="#features">Features</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#faq">FAQ</a>
+      </span>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

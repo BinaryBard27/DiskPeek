@@ -24,6 +24,12 @@ contextBridge.exposeInMainWorld("diskSneak", {
   /** App info: { name, version }. */
   getAppInfo: () => ipcRenderer.invoke("get-app-info"),
 
+  /** License status (Dodo Payments ready): { licensed, devMode }. */
+  getLicenseStatus: () => ipcRenderer.invoke("get-license-status"),
+
+  /** Validate + store a license key. Resolves to { ok, error? }. */
+  activateLicense: (key) => ipcRenderer.invoke("activate-license", key),
+
   /** Subscribe to scan progress events from the main process. */
   onScanProgress: (cb) => {
     ipcRenderer.on("scan-progress", (_e, p) => cb(p));
