@@ -74,5 +74,36 @@ async function poll() {
   }
 }
 
+// Light / Dark Theme toggle
+const $btnTheme = document.getElementById("theme-toggle");
+const $themeIconSun = document.getElementById("theme-icon-sun");
+const $themeIconMoon = document.getElementById("theme-icon-moon");
+
+function applyTheme(theme) {
+  const isLight = theme === "light";
+  document.documentElement.setAttribute("data-theme", isLight ? "light" : "dark");
+  if ($themeIconSun && $themeIconMoon) {
+    $themeIconSun.classList.toggle("hidden", !isLight);
+    $themeIconMoon.classList.toggle("hidden", isLight);
+  }
+}
+
+function initTheme() {
+  const saved = localStorage.getItem("diskpeek-theme");
+  const preferred = saved || (window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
+  applyTheme(preferred);
+}
+
+if ($btnTheme) {
+  $btnTheme.addEventListener("click", () => {
+    const current = document.documentElement.getAttribute("data-theme") === "light" ? "light" : "dark";
+    const next = current === "light" ? "dark" : "light";
+    localStorage.setItem("diskpeek-theme", next);
+    applyTheme(next);
+  });
+}
+
+initTheme();
+
 poll();
 setInterval(poll, POLL_MS);

@@ -21,6 +21,10 @@ const $btnTrash = $("btn-trash");
 const $btnLicense = $("btn-license");
 const $licenseState = $("license-state");
 const $toolbarPath = $("toolbar-path");
+const $btnTheme = $("btn-theme");
+const $themeIconSun = $("theme-icon-sun");
+const $themeIconMoon = $("theme-icon-moon");
+const $themeText = $("theme-text");
 
 const $scanPanel = $("scan-panel");
 const $progressFill = $("progress-fill");
@@ -533,4 +537,36 @@ window.diskSneak
     $appVersion.textContent = `v${info.version}`;
   });
 
+// ============================
+// Theme support (Light / Dark)
+// ============================
+
+function applyTheme(theme) {
+  const isLight = theme === "light";
+  document.documentElement.setAttribute("data-theme", isLight ? "light" : "dark");
+  if ($themeIconSun && $themeIconMoon && $themeText) {
+    $themeIconSun.classList.toggle("hidden", !isLight);
+    $themeIconMoon.classList.toggle("hidden", isLight);
+    $themeText.textContent = isLight ? "Light" : "Dark";
+  }
+}
+
+function initTheme() {
+  const saved = localStorage.getItem("disksneak-theme");
+  const preferred = saved || (window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
+  applyTheme(preferred);
+}
+
+function toggleTheme() {
+  const current = document.documentElement.getAttribute("data-theme") === "light" ? "light" : "dark";
+  const next = current === "light" ? "dark" : "light";
+  localStorage.setItem("disksneak-theme", next);
+  applyTheme(next);
+}
+
+if ($btnTheme) {
+  $btnTheme.addEventListener("click", toggleTheme);
+}
+
+initTheme();
 initLicense();

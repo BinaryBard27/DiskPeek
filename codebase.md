@@ -16,9 +16,9 @@ DiskPeek/
 │   ├── main.py              FastAPI app: /api/disks + static mount + index
 │   ├── disk_service.py      Volume sampler (Win32 / POSIX / synthetic)
 │   └── static/
-│       ├── index.html       Single-page UI shell (top bar + #disks grid)
-│       ├── app.js           Polling loop, card rendering, byte formatting
-│       └── style.css       Dark theme, pressure color-coding, reduced-motion
+│       ├── index.html       Single-page UI shell (top bar + #disks grid + theme toggle)
+│       ├── app.js           Polling loop, card rendering, byte formatting, theme persistence
+│       └── style.css       Dark & light theme, pressure color-coding, reduced-motion
 ├── disksneak/               DiskSneak: Electron desktop app
 │   ├── main.js              Main process: window, IPC handlers, recycle-bin
 │   ├── preload.js           contextBridge API on window.diskSneak
