@@ -1,6 +1,6 @@
 # DiskPeek
 
-A Windows real-time storage visualization.
+A Windows real-time storage visualization And analyzer.
 
 DiskPeek samples every volume on the machine and streams live usage
 numbers to a browser UI. On Windows it uses the Win32 APIs
